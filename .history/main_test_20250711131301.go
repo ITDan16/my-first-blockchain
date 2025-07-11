@@ -31,7 +31,7 @@ func TestCalculateHash_AdversarialCollisions(t *testing.T) {
 		name string
 		a, b Block
 	}{
-
+	
 		{
 			"Delimiter Injection: Data contains PrevHash as prefix",
 			base,
@@ -41,6 +41,7 @@ func TestCalculateHash_AdversarialCollisions(t *testing.T) {
 				return blk
 			}(),
 		},
+        // ... остальные кейсы без изменений
 		{
 			"Different Index but other fields match",
 			func() Block {
@@ -68,6 +69,7 @@ func TestCalculateHash_AdversarialCollisions(t *testing.T) {
 	}
 }
 
+// Создает новый блокчейн, используя новые структуры и методы
 func makeBlockchain(size int, config Config) *Blockchain {
 	bc, err := NewBlockchain(config)
 	if err != nil {
@@ -81,11 +83,12 @@ func makeBlockchain(size int, config Config) *Blockchain {
 	return bc
 }
 
+// BenchmarkChainValidation измеряет производительность Validate
 func BenchmarkChainValidation(b *testing.B) {
 	sizes := []int{100, 1000, 5000, 10000}
 	config := Config{
 		GenesisData: "Genesis",
-		Difficulty:  1,
+		Difficulty:  1,   // чтобы не тормозить PoW в бенчмарке
 		HashLength:  32,
 	}
 
